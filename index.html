@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>House Style Selector | Fox Certified Contractors</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="logo">Fox Certified Contractors</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div style="text-align:center; padding:60px 20px;">
+      <h1>Design Your Dream Home</h1>
+      <p style="max-width:700px; margin:0 auto 30px; font-size:18px; color:#666;">
+        Explore beautiful 3D home designs, visualize them on your property, and get instant estimates.
+      </p>
+      <button class="main-btn" onclick="startWizard()">
+        <i class="fas fa-home"></i> Choose Your House Style
+      </button>
+    </div>
+  </main>
+
+  <!-- Wizard Modal -->
+  <div id="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('local')">Local</div>
+        <div class="tab" onclick="switchTab('maxwell')">Maxwell</div>
+      </div>
+
+      <div id="question1" class="question active">
+        <h3>What house style do you prefer?</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:15px;">
+          <div class="style-option" onclick="selectStyle('Modern')">
+            <img src="modern.jpg" alt="Modern" style="width:100%; border-radius:8px;">
+            <p style="text-align:center; margin-top:8px;">Modern</p>
+          </div>
+          <div class="style-option" onclick="selectStyle('Traditional')">
+            <img src="Traditional.jpg" alt="Traditional" style="width:100%; border-radius:8px;">
+            <p style="text-align:center; margin-top:8px;">Traditional</p>
+          </div>
+          <div class="style-option" onclick="selectStyle('Farmhouse')">
+            <img src="farmhouse.jpg" alt="Farmhouse" style="width:100%; border-radius:8px;">
+            <p style="text-align:center; margin-top:8px;">Farmhouse</p>
+          </div>
+          <div class="style-option" onclick="selectStyle('Luxury')">
+            <img src="luxury.jpg" alt="Luxury" style="width:100%; border-radius:8px;">
+            <p style="text-align:center; margin-top:8px;">Luxury</p>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="margin-top:20px;" onclick="nextQuestion(1)">Next</button>
+      </div>
+
+      <div id="question2" class="question">
+        <h3>How many bedrooms do you need?</h3>
+        <div style="display:flex; gap:15px; margin-bottom:20px;">
+          <div class="btn btn-outline" onclick="selectBedrooms(1)">1</div>
+          <div class="btn btn-outline" onclick="selectBedrooms(2)">2</div>
+          <div class="btn btn-outline" onclick="selectBedrooms(3)">3</div>
+          <div class="btn btn-outline" onclick="selectBedrooms(4)">4</div>
+          <div class="btn btn-outline" onclick="selectBedrooms(5)">5+</div>
+        </div>
+        <button class="btn btn-primary" onclick="nextQuestion(2)">Next</button>
+      </div>
+
+      <div id="question3" class="question">
+        <h3>What's your approximate budget?</h3>
+        <input type="range" id="budgetSlider" min="200000" max="1000000" step="50000" value="500000" 
+               oninput="document.getElementById('budgetValue').innerText = '$' + this.value.toLocaleString()">
+        <p id="budgetValue" style="text-align:center; font-size:20px; font-weight:bold;">$500,000</p>
+        <button class="btn btn-primary" onclick="nextQuestion(3)">Next</button>
+      </div>
+
+      <div id="question4" class="question">
+        <h3>Connect to your property</h3>
+        <p>Enter your property address to check lot compatibility:</p>
+        <input type="text" id="propertyAddress" placeholder="123 Main St, Sarasota, FL">
+        <p style="text-align:center; margin:15px 0;">- OR -</p>
+        <div style="border:2px dashed #ccc; padding:30px; text-align:center; border-radius:8px;">
+          <i class="fas fa-upload" style="font-size:30px; color:#999;"></i>
+          <p>Upload your survey plan</p>
+          <input type="file" id="surveyUpload" style="display:none;">
+          <button class="btn btn-outline" onclick="document.getElementById('surveyUpload').click()">Select File</button>
+        </div>
+        <button class="btn btn-primary" onclick="nextQuestion(4)">Next</button>
+      </div>
+
+      <div id="question5" class="question">
+        <h3>Tell us about yourself</h3>
+        <input type="text" id="userName" placeholder="Your Name">
+        <input type="email" id="userEmail" placeholder="Email Address">
+        <input type="tel" id="userPhone" placeholder="Phone Number">
+        <button class="btn btn-success" onclick="finishWizard()">Get My Home Designs</button>
+      </div>
+
+      <div id="spinner" class="spinner" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- Results Gallery -->
+  <div id="resultGallery">
+    <div class="modal-content" style="max-width:1200px;">
+      <span class="close-modal" onclick="closeGallery()">&times;</span>
+      
+      <div style="text-align:center; margin-bottom:30px;">
+        <h2>Your Matching House Plans</h2>
+        <p>We found <span id="matchCount">3</span> homes that match your preferences</p>
+      </div>
+
+      <div class="property-info">
+        <h4>Your Property Information</h4>
+        <div class="property-details">
+          <div class="detail-item">
+            <h5>Address</h5>
+            <p id="prop-address">123 Main St, Sarasota, FL</p>
+          </div>
+          <div class="detail-item">
+            <h5>Lot Size</h5>
+            <p id="prop-size">0.5 acres (21,780 sq ft)</p>
+          </div>
+          <div class="detail-item">
+            <h5>Existing Structure</h5>
+            <p id="prop-existing">None (New Build)</p>
+          </div>
+          <div class="detail-item">
+            <h5>Zoning</h5>
+            <p id="prop-zoning">Residential (RSF3)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery" id="galleryContent"></div>
+
+      <div class="floor-plans">
+        <h3>Generated Floor Plans</h3>
+        <div class="plan-images">
+          <div class="plan-image">
+            <img src="https://example.com/floor-plan1.jpg" alt="Floor Plan">
+            <p style="text-align:center; padding:10px;">First Floor</p>
+          </div>
+          <div class="plan-image">
+            <img src="https://example.com/floor-plan2.jpg" alt="Floor Plan">
+            <p style="text-align:center; padding:10px;">Second Floor</p>
+          </div>
+          <div class="plan-image">
+            <img src="https://example.com/elevation.jpg" alt="Elevation">
+            <p style="text-align:center; padding:10px;">Front Elevation</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cost-estimate">
+        <h3>Estimated Construction Cost</h3>
+        <div class="cost-breakdown">
+          <div class="cost-item">
+            <span>Base Construction Cost (2500 sq ft × $250)</span>
+            <span>$625,000</span>
+          </div>
+          <div class="cost-item">
+            <span>Site Preparation</span>
+            <span>$20,000</span>
+          </div>
+          <div class="cost-item">
+            <span>Permits & Fees</span>
+            <span>$15,000</span>
+          </div>
+          <div class="cost-item">
+            <span>Contractor Fee (20%)</span>
+            <span>$132,000</span>
+          </div>
+          <div class="cost-item">
+            <span>Estimated Total</span>
+            <span>$792,000</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:30px;">
+        <button class="main-btn" onclick="contactUs()">
+          <i class="fas fa-paper-plane"></i> Contact Us to Get Started
+        </button>
+      </div>
+    </div>
+  </div>
+
+ <script src="script.js"></script>
+</body>
+</html>

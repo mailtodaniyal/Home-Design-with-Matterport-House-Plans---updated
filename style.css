@@ -1,0 +1,401 @@
+    :root {
+      --primary: #2d89ef;
+      --secondary: #3CB5AC;
+      --accent: #FFD700;
+      --dark: #333;
+      --light: #f9f9f9;
+      --success: #3EC96B;
+      --warning: #FF6B6B;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--light);
+      color: var(--dark);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header Styles */
+    .header {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 15px 0;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    /* Main Button */
+    .main-btn {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .main-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 165, 0, 0.4);
+    }
+
+    .main-btn i {
+      font-size: 20px;
+    }
+
+    /* Modal Styles */
+    #modal, #resultGallery {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      overflow: auto;
+      z-index: 9999;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+      animation: fadeIn 0.5s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .close-modal:hover {
+      color: var(--dark);
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eee;
+    }
+
+    .tab {
+      padding: 12px 25px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #777;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .tab.active {
+      color: var(--secondary);
+      border-bottom-color: var(--secondary);
+    }
+
+    /* Question Wizard */
+    .question {
+      display: none;
+      animation: fadeIn 0.5s;
+    }
+
+    .question.active {
+      display: block;
+    }
+
+    .question h3 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    /* Input Styles */
+    input, select {
+      padding: 12px 15px;
+      width: 100%;
+      margin: 10px 0 20px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(45, 137, 239, 0.2);
+    }
+
+    /* Button Styles */
+    .btn {
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1a73e8;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #2e9e5b;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #ddd;
+      color: #777;
+    }
+
+    .btn-outline:hover {
+      border-color: #bbb;
+      color: var(--dark);
+    }
+
+    /* Spinner */
+    .spinner {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .spinner::after {
+      content: '⏳';
+      font-size: 40px;
+      display: inline-block;
+      animation: spin 1.5s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Gallery Styles */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+      padding: 20px 0;
+    }
+
+    .house-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+
+    .house-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .house-preview {
+      position: relative;
+      height: 250px;
+      overflow: hidden;
+    }
+
+    .house-preview iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .house-preview .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+      color: white;
+    }
+
+    .house-preview .overlay h4 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .house-details {
+      padding: 20px;
+    }
+
+    .house-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      color: #666;
+    }
+
+    .house-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .feature-tag {
+      background: #f0f7ff;
+      color: var(--primary);
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* Property Info Section */
+    .property-info {
+      background: #f5f9ff;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .property-info h4 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    .property-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .detail-item {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .detail-item h5 {
+      margin: 0 0 5px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .detail-item p {
+      margin: 0;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    /* Floor Plans */
+    .floor-plans {
+      margin: 30px 0;
+    }
+
+    .floor-plans h3 {
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .plan-images {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+
+    .plan-image {
+      min-width: 300px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .plan-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Cost Estimate */
+    .cost-estimate {
+      background: #fff9f0;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .cost-breakdown {
+      margin: 20px 0;
+    }
+
+    .cost-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cost-item:last-child {
+      border-bottom: none;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .modal-content {
+        margin: 20px auto;
+        padding: 20px;
+      }
+      
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
